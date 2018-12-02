@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph"
+    app:startDestination="@id/destination_overview">
+
+    <fragment
+        android:id="@+id/destination_overview"
+        android:name="com.aidanvii.vehicles.features.overview.presentation.VehicleOverviewFragment"
+        android:label="VehicleOverviewFragment">
+        <action
+            android:id="@+id/action_destination_overview_to_destination_detail"
+            app:destination="@id/destination_detail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/destination_detail"
+        android:name="com.aidanvii.vehicles.features.detail.presentation.VehicleDetailFragment"
+        android:label="DetailFragment" >
+        <argument
+            android:name="baseImageUri"
+            android:defaultValue='""'
+            app:argType="string" />
+    </fragment>
+</navigation>

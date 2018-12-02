@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.aidanvii.vehicles.features.overview.presentation.VehicleImageViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_vehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/card_vehicle_image_margin"
+        android:transitionName="transition"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:onClickUri="@{viewModel.baseImageUri}"
+        app:onClickUriId="@{@id/card_vehicle}"
+        tools:targetApi="lollipop">
+
+        <!--
+        Ideally the API should provide image aspect ratio with the URL so the view can be pre-measured.
+        Yigit explains: https://academy.realm.io/posts/360andev-yigit-boyar-pro-recyclerview-android-ui-java/
+        -->
+        <com.aidanvii.vehicles.common.ui.AspectRatioAppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            app:aspectRatio="@{1}"
+            app:imageUrl="@{viewModel.imageUrl}" />
+
+    </androidx.cardview.widget.CardView>
+</layout>

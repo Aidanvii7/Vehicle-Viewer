@@ -1,0 +1,60 @@
+apply plugin: 'com.android.feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
+
+apply from: "${project.rootDir}/versions.gradle"
+
+android {
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    compileSdkVersion compile_sdk_version
+
+    baseFeature true
+
+    defaultConfig {
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding.enabled = true
+}
+
+
+dependencies {
+    application project(':App')
+    api project(path: ':FeatureCommon')
+    api project(path: ':Core')
+    api project(path: ':Common')
+
+    // Toolbox (source: https://github.com/Aidanvii7/Toolbox)
+    implementation "com.github.Aidanvii7.Toolbox:adapterviews-databinding-recyclerview:$toolbox_version"
+    implementation "com.github.Aidanvii7.Toolbox:delegates-coroutines-job:$toolbox_version"
+
+    // testing
+    testImplementation junit5.unitTests()
+    testCompileOnly junit5.unitTestsRuntime()
+    testImplementation junit5.parameterized()
+    testImplementation project(path: ':TestUtils')
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

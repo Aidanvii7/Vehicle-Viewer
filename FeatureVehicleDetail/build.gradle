@@ -1,0 +1,51 @@
+apply plugin: 'com.android.feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
+
+apply from: "${project.rootDir}/versions.gradle"
+
+android {
+    compileSdkVersion compile_sdk_version
+
+    baseFeature true
+
+    defaultConfig {
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding.enabled = true
+}
+
+dependencies {
+    application project(':App')
+    api project(path: ':FeatureCommon')
+    api project(path: ':Common')
+    api project(path: ':Core')
+
+    implementation "com.github.chrisbanes:PhotoView:$chris_banes_photo_view"
+
+    // testing
+    testImplementation junit5.unitTests()
+    testCompileOnly junit5.unitTestsRuntime()
+    testImplementation junit5.parameterized()
+    testImplementation project(path: ':TestUtils')
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

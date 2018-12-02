@@ -1,0 +1,45 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
+
+apply from: "${project.rootDir}/versions.gradle"
+
+android {
+    compileSdkVersion compile_sdk_version
+
+    defaultConfig {
+
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation project(path: ':Common')
+
+    api "de.jodamob.android:SuperReflect:$superreflect_version"
+    api "junit:junit:$junit_version"
+    api "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    api "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_kotlin_version"
+    api "org.amshove.kluent:kluent:$kluent_version"
+    api "de.jodamob.android:SuperReflect:$superreflect_version"
+}
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

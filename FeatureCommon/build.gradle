@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: "de.mannodermaus.android-junit5"
+
+apply from: "${project.rootDir}/versions.gradle"
+
+android {
+    compileSdkVersion compile_sdk_version
+
+    defaultConfig {
+
+        minSdkVersion min_sdk_version
+        targetSdkVersion target_sdk_version
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding.enabled = true
+}
+
+dependencies {
+    implementation project(path: ':Common')
+    // Android support libs
+    api "androidx.cardview:cardview:$android_jetpack_version"
+    api ("androidx.appcompat:appcompat:$android_jetpack_version") {
+        exclude group: "com.android.support"
+    }
+    api "androidx.legacy:legacy-support-v4:$android_jetpack_version"
+    api "com.google.android.material:material:$android_jetpack_version"
+    api "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    // Toolbox (source: https://github.com/Aidanvii7/Toolbox)
+    api ("com.github.Aidanvii7.Toolbox:arch-viewmodel-factory:$toolbox_version") {
+        exclude group: "com.android.support"
+    }
+    api "com.github.Aidanvii7.Toolbox:databinding-arch-viewmodel:$toolbox_version"
+    api "com.github.Aidanvii7.Toolbox:delegates-observable-databinding:$toolbox_version"
+    api "com.github.Aidanvii7.Toolbox:delegates-observable-lifecycle:$toolbox_version"
+
+    api "com.facebook.shimmer:shimmer:$facebook_shimmer_version"
+
+    // Databinding
+    api ("com.android.databinding:library:$android_gradle_version") {
+        exclude group: "com.android.support"
+    }
+
+    // testing
+    testImplementation junit5.unitTests()
+    testCompileOnly junit5.unitTestsRuntime()
+    testImplementation junit5.parameterized()
+    testImplementation project(path: ':TestUtils')
+}
+repositories {
+    mavenCentral()
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

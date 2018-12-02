@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/App/App.iml" filepath="$PROJECT_DIR$/App/App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Common/Common.iml" filepath="$PROJECT_DIR$/Common/Common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Core/Core.iml" filepath="$PROJECT_DIR$/Core/Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FeatureCommon/FeatureCommon.iml" filepath="$PROJECT_DIR$/FeatureCommon/FeatureCommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FeatureVehicleDetail/FeatureVehicleDetail.iml" filepath="$PROJECT_DIR$/FeatureVehicleDetail/FeatureVehicleDetail.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FeatureVehicleOverview/FeatureVehicleOverview.iml" filepath="$PROJECT_DIR$/FeatureVehicleOverview/FeatureVehicleOverview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TestUtils/TestUtils.iml" filepath="$PROJECT_DIR$/TestUtils/TestUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Vehicle-Viewer.iml" filepath="$PROJECT_DIR$/Vehicle-Viewer.iml" />
+    </modules>
+  </component>
+</project>
