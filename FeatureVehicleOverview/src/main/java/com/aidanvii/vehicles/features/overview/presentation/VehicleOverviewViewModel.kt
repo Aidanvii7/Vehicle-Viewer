@@ -18,6 +18,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.coroutines.suspendCoroutine
 
 internal class VehicleOverviewViewModel(
     private val fetchVehicleUseCase: FetchVehicleUseCase,
@@ -70,18 +71,16 @@ internal class VehicleOverviewViewModel(
                 }
                 delay(exponentialBackoff)
                 logD("fetchAndBuildAdapterItems: failure! trying again in $exponentialBackoff millis")
-                exponentialBackoff * 2
+                exponentialBackoff + 1000
             }
             showLoader = false
         }
     }
 
     private suspend fun CoroutineScope.fetchAndBuildAdapterItems(): List<VehicleImageAdapterItem> =
-        async(coroutineContext + coroutineDispatchers.io) {
-            fetchVehicleUseCase.invoke().images.map { vehicleImage ->
-                VehicleImageAdapterItem(vehicleImage)
-            }
-        }.await()
+        fetchVehicleUseCase.run { invoke() }.images.map { vehicleImage ->
+            VehicleImageAdapterItem(vehicleImage)
+        }
 
 
     override fun onCleared() = fetchVehicleJob.cancel()

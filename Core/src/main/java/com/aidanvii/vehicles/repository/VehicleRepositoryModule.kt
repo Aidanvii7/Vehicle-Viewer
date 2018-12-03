@@ -2,6 +2,7 @@ package com.aidanvii.vehicles.repository
 
 import com.aidanvii.vehicles.repository.datasource.VehicleApiService
 import com.aidanvii.toolbox.Provider
+import com.aidanvii.vehicles.common.utils.CoroutineDispatchers
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.squareup.moshi.Moshi
@@ -43,5 +44,8 @@ class VehicleRepositoryModule : Provider<VehicleRepository> {
         retrofit.create(VehicleApiService::class.java)
     }
 
-    override fun invoke(): VehicleRepository = VehicleRepositoryImpl(vehicleApiService)
+    override fun invoke(): VehicleRepository = VehicleRepositoryImpl(
+        apiService = vehicleApiService,
+        dispatchers = CoroutineDispatchers.DEFAULT
+    )
 }
