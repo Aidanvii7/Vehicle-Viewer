@@ -35,9 +35,7 @@ class GlideImageViewBindingAdaptersTest {
     }
 
     val requestOptions = mock<RequestOptions>().apply {
-        whenever(placeholder(anyNullable<Drawable>())).thenReturn(this)
         whenever(diskCacheStrategy(any())).thenReturn(this)
-        whenever(override(any(), any())).thenReturn(this)
     }
 
     private val tested = GlideImageViewBindingAdapters(
@@ -53,50 +51,27 @@ class GlideImageViewBindingAdaptersTest {
     )
 
     var givenImageUrl: String? = null
-    var givenPlaceholder: Drawable? = null
-    var givenCrossFadeEnabled: Boolean? = null
 
     private fun ImageView.invokeWithParams() {
         tested.apply {
             _bind(
-                imageUrl = givenImageUrl,
-                placeHolder = givenPlaceholder,
-                crossFadeEnabled = givenCrossFadeEnabled
+                imageUrl = givenImageUrl
             )
         }
     }
 
     @Nested
-    inner class `when imageUrl is null and placeholder is null` {
+    inner class `when imageUrl is null` {
 
         @BeforeEach
         fun givenWhen() {
             givenImageUrl = null
-            givenPlaceholder = null
             imageView.invokeWithParams()
         }
 
         @Test
         fun `nothing happens`() {
             imageView.verifyNoMoreRealInteractions()
-        }
-    }
-
-    @Nested
-    inner class `when imageUrl is null and placeholder is not null` {
-
-        val expectedPlaceholder = mock<Drawable>()
-
-        @BeforeEach
-        fun givenWhen() {
-            givenImageUrl = null
-            givenPlaceholder = expectedPlaceholder
-            imageView.invokeWithParams()
-        }
-
-        @Test
-        fun `sets drawable as placeholder`() {
-            verify(imageView).setImageDrawable(expectedPlaceholder)
         }
     }
 
@@ -138,7 +113,6 @@ class GlideImageViewBindingAdaptersTest {
                 inOrder(requestManager, requestBuilder, requestOptions).apply {
                     verify(requestManager).load("nonNullImageUrl")
                     verify(requestBuilder).transition(any())
-                    verify(requestOptions).placeholder(null)
                     verify(requestOptions).diskCacheStrategy(DiskCacheStrategy.DATA)
                     verify(requestBuilder).into(imageView)
                     verifyNoMoreInteractions()
@@ -147,96 +121,7 @@ class GlideImageViewBindingAdaptersTest {
         }
 
         @Nested
-        inner class `when crossFadeEnabled is null` {
-
-            @BeforeEach
-            fun givenWhen() {
-                givenCrossFadeEnabled = null
-                imageView.invokeWithParams()
-            }
-
-            @Test
-            fun `loads image url with correct configuration`() {
-                inOrder(requestManager, requestBuilder, requestOptions).apply {
-                    verify(requestManager).load(ArgumentMatchers.anyString())
-                    verify(requestBuilder).transition(any())
-                    verify(requestOptions).placeholder(null)
-                    verify(requestOptions).diskCacheStrategy(DiskCacheStrategy.DATA)
-                    verify(requestBuilder).into(imageView)
-                    verifyNoMoreInteractions()
-                }
-            }
-        }
-
-        @Nested
-        inner class `when crossFadeEnabled is true` {
-
-            @BeforeEach
-            fun givenWhen() {
-                givenCrossFadeEnabled = true
-                imageView.invokeWithParams()
-            }
-
-            @Test
-            fun `loads image url with correct configuration`() {
-                inOrder(requestManager, requestBuilder, requestOptions).apply {
-                    verify(requestManager).load(ArgumentMatchers.anyString())
-                    verify(requestBuilder).transition(any())
-                    verify(requestOptions).placeholder(null)
-                    verify(requestOptions).diskCacheStrategy(DiskCacheStrategy.DATA)
-                    verify(requestBuilder).into(imageView)
-                    verifyNoMoreInteractions()
-                }
-            }
-        }
-
-        @Nested
-        inner class `when crossFadeEnabled is false` {
-
-            @BeforeEach
-            fun givenWhen() {
-                givenCrossFadeEnabled = false
-                imageView.invokeWithParams()
-            }
-
-            @Test
-            fun `loads image url with correct configuration`() {
-                inOrder(requestManager, requestBuilder, requestOptions).apply {
-                    verify(requestManager).load(ArgumentMatchers.anyString())
-                    verify(requestOptions).placeholder(null)
-                    verify(requestOptions).diskCacheStrategy(DiskCacheStrategy.DATA)
-                    verify(requestBuilder).into(imageView)
-                    verifyNoMoreInteractions()
-                }
-            }
-        }
-
-        @Nested
-        inner class `when placeholder is not null` {
-
-            val expectedPlaceholder = mock<Drawable>()
-
-            @BeforeEach
-            fun givenWhen() {
-                givenPlaceholder = expectedPlaceholder
-                imageView.invokeWithParams()
-            }
-
-            @Test
-            fun `loads image url with correct configuration`() {
-                inOrder(requestManager, requestBuilder, requestOptions).apply {
-                    verify(requestManager).load(ArgumentMatchers.anyString())
-                    verify(requestBuilder).transition(any())
-                    verify(requestOptions).placeholder(expectedPlaceholder)
-                    verify(requestOptions).diskCacheStrategy(DiskCacheStrategy.DATA)
-                    verify(requestBuilder).into(imageView)
-                    verifyNoMoreInteractions()
-                }
-            }
-        }
-
-        @Nested
-        inner class `when imageUrl is null while an in-flight request is in progress and placeholder is null` {
+        inner class `when imageUrl is null while an in-flight request is in progress` {
 
             @BeforeEach
             fun givenWhen() {
@@ -254,31 +139,6 @@ class GlideImageViewBindingAdaptersTest {
             @Test
             fun `sets drawable as null`() {
                 verify(imageView).setImageDrawable(null)
-            }
-        }
-
-        @Nested
-        inner class `when imageUrl is null while an in-flight request is in progress and placeholder is not null` {
-
-            val expectedPlaceholder = mock<Drawable>()
-
-            @BeforeEach
-            fun givenWhen() {
-                givenImageUrl = nonNullImageUrl
-                givenPlaceholder = expectedPlaceholder
-                imageView.invokeWithParams()
-                givenImageUrl = null
-                imageView.invokeWithParams()
-            }
-
-            @Test
-            fun `pending request is cancelled`() {
-                verify(requestManager).clear(imageView)
-            }
-
-            @Test
-            fun `sets drawable as placeholder`() {
-                verify(imageView).setImageDrawable(expectedPlaceholder)
             }
         }
     }

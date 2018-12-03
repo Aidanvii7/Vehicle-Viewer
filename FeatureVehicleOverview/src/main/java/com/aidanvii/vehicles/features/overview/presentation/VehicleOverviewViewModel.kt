@@ -85,4 +85,3 @@ internal class VehicleOverviewViewModel(
         private val initialRetryDelay = 500L
     }
 }
-

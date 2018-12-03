@@ -28,10 +28,10 @@ class GlideImageViewBindingAdapters(
         .setCrossFadeEnabled(true)
         .build()
 
-    override fun ImageView.loadImage(imageViewParams: ImageBindingParams) {
+    override fun ImageView.loadImage(imageUrl: String) {
         glideWith(context)
-            .load(imageViewParams.imageUrl)
-            .applyOptionsFrom(imageViewParams)
+            .load(imageUrl)
+            .applyTransformations()
             .into(this)
     }
 
@@ -39,13 +39,9 @@ class GlideImageViewBindingAdapters(
         glideWith(context).clear(this)
     }
 
-    private fun RequestBuilder<Drawable>.applyOptionsFrom(newParams: ImageBindingParams): RequestBuilder<Drawable> =
-        applyTransition(newParams).apply(
-            requestOptions()
-                .placeholder(newParams.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.DATA)
-        )
+    private fun RequestBuilder<Drawable>.applyTransformations(): RequestBuilder<Drawable> =
+        applyTransition().apply(requestOptions().diskCacheStrategy(DiskCacheStrategy.DATA))
 
-    private fun RequestBuilder<Drawable>.applyTransition(newParams: ImageBindingParams): RequestBuilder<Drawable> =
-        newParams.run { if (crossFadeEnabled) transition(withCrossFade(crossFadeFactory)) else this@applyTransition }
+    private fun RequestBuilder<Drawable>.applyTransition(): RequestBuilder<Drawable> =
+        transition(withCrossFade(crossFadeFactory))
 }
