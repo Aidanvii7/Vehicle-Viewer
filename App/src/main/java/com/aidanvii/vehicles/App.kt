@@ -9,7 +9,7 @@ import com.aidanvii.vehicles.common.utils.logger.CompositeLogger
 import com.aidanvii.vehicles.features.detail.di.VehicleDetailModule
 import com.aidanvii.vehicles.features.detail.di.VehicleDetailModuleProvider
 import com.aidanvii.vehicles.features.detail.presentation.VehicleDetailFragmentArgs
-import com.aidanvii.vehicles.features.overview.databinding.AppOnClickBindingAdapters
+import com.aidanvii.vehicles.main.databinding.AppOnClickBindingAdapters
 import com.aidanvii.vehicles.features.overview.di.VehicleOverviewModule
 import com.aidanvii.vehicles.features.overview.di.VehicleOverviewModuleProvider
 import com.aidanvii.vehicles.main.databinding.DataBindingComponent

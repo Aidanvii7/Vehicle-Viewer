@@ -1,4 +1,4 @@
-package com.aidanvii.vehicles.features.overview.databinding
+package com.aidanvii.vehicles.main.databinding
 
 import android.os.Build
 import android.view.View

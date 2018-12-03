@@ -15,10 +15,8 @@ import com.aidanvii.vehicles.features.overview.R
 import com.aidanvii.vehicles.features.overview.ui.createGridLayoutManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.coroutines.suspendCoroutine
 
 internal class VehicleOverviewViewModel(
     private val fetchVehicleUseCase: FetchVehicleUseCase,
