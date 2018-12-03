@@ -41,7 +41,6 @@ dependencies {
     }
     api "com.github.Aidanvii7.Toolbox:databinding-arch-viewmodel:$toolbox_version"
     api "com.github.Aidanvii7.Toolbox:delegates-observable-databinding:$toolbox_version"
-    api "com.github.Aidanvii7.Toolbox:delegates-observable-lifecycle:$toolbox_version"
 
     api "com.facebook.shimmer:shimmer:$facebook_shimmer_version"
 

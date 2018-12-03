@@ -44,7 +44,6 @@ dependencies {
 
     // Toolbox (source: https://github.com/Aidanvii7/Toolbox)
     implementation "com.github.Aidanvii7.Toolbox:adapterviews-databinding-recyclerview:$toolbox_version"
-    implementation "com.github.Aidanvii7.Toolbox:delegates-coroutines-job:$toolbox_version"
 
     // testing
     testImplementation junit5.unitTests()
