@@ -2,7 +2,6 @@ package com.aidanvii.vehicles.features.overview.presentation
 
 import androidx.databinding.Bindable
 import com.aidanvii.toolbox.adapterviews.recyclerview.BindingRecyclerViewBinder
-import com.aidanvii.toolbox.arch.lifecycle.DefaultLifecycleObserver
 import com.aidanvii.toolbox.arch.viewmodel.ViewModelFactory
 import com.aidanvii.toolbox.databinding.ObservableArchViewModel
 import com.aidanvii.toolbox.databinding.bindable
@@ -21,8 +20,7 @@ import kotlinx.coroutines.launch
 internal class VehicleOverviewViewModel(
     private val fetchVehicleUseCase: FetchVehicleUseCase,
     private val coroutineDispatchers: CoroutineDispatchers = CoroutineDispatchers.DEFAULT
-) : ObservableArchViewModel(),
-    DefaultLifecycleObserver {
+) : ObservableArchViewModel() {
 
     class Factory(
         private val fetchVehicleUseCase: FetchVehicleUseCase

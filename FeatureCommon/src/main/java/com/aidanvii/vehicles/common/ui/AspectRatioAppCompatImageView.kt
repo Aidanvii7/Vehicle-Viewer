@@ -14,7 +14,6 @@ class AspectRatioAppCompatImageView @JvmOverloads constructor(
     var aspectRatio: Float = 1f
         set(value) {
             if (value != 0f) {
-
                 field = value
             }
         }

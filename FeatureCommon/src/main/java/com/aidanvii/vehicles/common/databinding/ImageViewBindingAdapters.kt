@@ -20,7 +20,7 @@ abstract class ImageViewBindingAdapters {
     @BindingAdapter(
         "imageUrl",
         "placeHolder",
-        "crossFadeEnabled",requireAll = false
+        "crossFadeEnabled", requireAll = false
     )
     @ExperimentalContracts
     fun ImageView._bind(
