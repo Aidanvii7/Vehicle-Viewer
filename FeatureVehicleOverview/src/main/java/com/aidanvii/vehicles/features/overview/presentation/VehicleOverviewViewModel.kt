@@ -65,8 +65,8 @@ internal class VehicleOverviewViewModel(
                 } catch (e: Throwable) {
                     e.message?.let { logE(it) }
                 }
-                delay(exponentialBackoff)
                 logD("fetchAndBuildAdapterItems: failure! trying again in $exponentialBackoff millis")
+                delay(exponentialBackoff)
                 exponentialBackoff + 1000
             }
             showLoader = false
@@ -74,7 +74,7 @@ internal class VehicleOverviewViewModel(
     }
 
     private suspend fun CoroutineScope.fetchAndBuildAdapterItems(): List<VehicleImageAdapterItem> =
-        fetchVehicleUseCase.run { invoke() }.images.map { vehicleImage ->
+        fetchVehicleUseCase.invokeIn(this).images.map { vehicleImage ->
             VehicleImageAdapterItem(vehicleImage)
         }
 

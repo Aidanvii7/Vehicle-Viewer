@@ -36,7 +36,7 @@ internal class VehicleOverviewViewModelTest {
     )
 
     val repository = object : VehicleRepository {
-        override suspend fun CoroutineScope.vehicle(): Vehicle = vehicle
+        override suspend fun fetchVehicleIn(coroutineScope: CoroutineScope): Vehicle = vehicle
     }
 
     val fetchVehicleUseCase = FetchVehicleUseCase(repository)

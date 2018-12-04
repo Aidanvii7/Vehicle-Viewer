@@ -17,21 +17,23 @@ internal class VehicleRepositoryImpl(
     private val apiService: VehicleApiService,
     private val dispatchers: CoroutineDispatchers
 ) : VehicleRepository {
-
-    override suspend fun CoroutineScope.vehicle(): Vehicle =
-        suspendCoroutine { continuation ->
-            logD("vehicle thread: ${Thread.currentThread().name}")
-            launch(coroutineContext + dispatchers.io) {
-                try {
-                    apiService.vehicle.await().let {
-                        continuation.resume(it.toVehicle())
+    override suspend fun fetchVehicleIn(coroutineScope: CoroutineScope): Vehicle =
+        coroutineScope.run {
+            suspendCoroutine { continuation ->
+                logD("vehicle thread: ${Thread.currentThread().name}")
+                launch(coroutineContext + dispatchers.io) {
+                    try {
+                        apiService.vehicle.await().let {
+                            continuation.resume(it.toVehicle())
+                        }
+                    } catch (e: Throwable) {
+                        continuation.resumeWithException(e)
                     }
-                } catch (e: Throwable) {
-                    continuation.resumeWithException(e)
                 }
             }
         }
 
 
 }
+
 

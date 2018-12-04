@@ -7,5 +7,6 @@ import kotlinx.coroutines.CoroutineScope
 internal class FetchVehicleUseCase(
     private val vehicleRepository: VehicleRepository
 ) {
-    suspend fun CoroutineScope.invoke(): Vehicle = vehicleRepository.run { vehicle() }
+    suspend fun invokeIn(coroutineScope: CoroutineScope): Vehicle =
+        vehicleRepository.fetchVehicleIn(coroutineScope)
 }
