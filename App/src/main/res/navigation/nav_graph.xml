@@ -16,7 +16,7 @@
     <fragment
         android:id="@+id/destination_detail"
         android:name="com.aidanvii.vehicles.features.detail.presentation.VehicleDetailFragment"
-        android:label="DetailFragment" >
+        android:label="DetailFragment">
         <argument
             android:name="baseImageUri"
             android:defaultValue='""'

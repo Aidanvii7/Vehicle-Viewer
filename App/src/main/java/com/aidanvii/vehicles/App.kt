@@ -15,8 +15,7 @@ import com.aidanvii.vehicles.features.overview.di.VehicleOverviewModuleProvider
 import com.aidanvii.vehicles.main.databinding.DataBindingComponent
 import com.aidanvii.vehicles.models.VehicleImage
 
-class App :
-    Application(),
+class App : Application(),
     VehicleOverviewModuleProvider,
     VehicleDetailModuleProvider {
     lateinit var defaultDataBindingComponent: DataBindingComponent
