@@ -1,4 +1,4 @@
-package com.aidanvii.vehicles.main.databinding
+package com.aidanvii.vehicles.databinding
 
 import android.os.Build
 import android.view.View
@@ -29,7 +29,6 @@ class AppOnClickBindingAdapters : OnClickBindingAdapters() {
             findNavController().navigate(directions, extras)
         } else {
             findNavController().navigate(directions)
-
         }
     }
 

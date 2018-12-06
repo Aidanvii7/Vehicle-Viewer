@@ -1,4 +1,4 @@
-package com.aidanvii.vehicles.main.databinding
+package com.aidanvii.vehicles.databinding
 
 import android.content.Context
 import android.graphics.drawable.Drawable

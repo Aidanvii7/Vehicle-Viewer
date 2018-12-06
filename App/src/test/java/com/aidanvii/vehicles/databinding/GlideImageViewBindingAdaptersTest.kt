@@ -1,10 +1,9 @@
-package com.aidanvii.vehicles.main.databinding
+package com.aidanvii.vehicles.databinding
 
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import com.aidanvii.vehicles.testutils.anyNullable
 import com.aidanvii.vehicles.testutils.prepareMockForTest
 import com.aidanvii.vehicles.testutils.verifyNoMoreRealInteractions
 import com.bumptech.glide.RequestBuilder
@@ -19,7 +18,6 @@ import com.nhaarman.mockitokotlin2.whenever
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.mockito.ArgumentMatchers
 import kotlin.contracts.ExperimentalContracts
 
 @ExperimentalContracts
