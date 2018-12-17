@@ -35,7 +35,7 @@ internal class VehicleOverviewViewModel(
     @get:Bindable
     var vehicleAdapterItems: List<VehicleImageAdapterItem> by bindable(
         repeatedListOf(
-            element = VehicleImageAdapterItem.PLACEHOLDER,
+            element = VehicleImageAdapterItem.buildWith(null),
             count = 6
         )
     )
@@ -75,9 +75,8 @@ internal class VehicleOverviewViewModel(
 
     private suspend fun CoroutineScope.fetchAndBuildAdapterItems(): List<VehicleImageAdapterItem> =
         fetchVehicleUseCase.invokeIn(this).images.map { vehicleImage ->
-            VehicleImageAdapterItem(vehicleImage)
+            VehicleImageAdapterItem.buildWith(vehicleImage)
         }
-
 
     override fun onCleared() = fetchVehicleJob.cancel()
 

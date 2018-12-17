@@ -5,27 +5,23 @@ import com.aidanvii.toolbox.adapterviews.databinding.BindableAdapterItem
 import com.aidanvii.vehicles.features.overview.R
 import com.aidanvii.vehicles.models.VehicleImage
 import com.aidanvii.vehicles.common.utils.areEqual
-import com.aidanvii.vehicles.features.overview.R.layout.card_vehicle_image
-import com.aidanvii.vehicles.features.overview.R.layout.card_vehicle_image_placeholder
 
-internal data class VehicleImageAdapterItem(
-    private val vehicleImage: VehicleImage?
-) : BindableAdapterItem {
+internal sealed class VehicleImageAdapterItem : BindableAdapterItem {
 
-    override val layoutId: Int
-        get() = if (vehicleImage != null) card_vehicle_image else card_vehicle_image_placeholder
-
-    override val lazyBindableItem: Lazy<VehicleImageViewModel?> = unsafeLazy {
-        vehicleImage?.let { VehicleImageViewModel(vehicleImage) }
+    private data class Populated(private val vehicleImage: VehicleImage) : VehicleImageAdapterItem() {
+        override val layoutId get() = R.layout.card_vehicle_image
+        override val lazyBindableItem = unsafeLazy { VehicleImageViewModel(vehicleImage) }
+        override val isEmpty get() = false
     }
 
-    override val isEmpty: Boolean get() = vehicleImage == null
-
-    override fun equals(other: Any?): Boolean = areEqual(other) { vehicleImage == it.vehicleImage }
-
-    override fun hashCode(): Int = vehicleImage.hashCode()
+    private object Placeholder : VehicleImageAdapterItem() {
+        override val layoutId get() = R.layout.card_vehicle_image_placeholder
+        override val lazyBindableItem = unsafeLazy { null }
+        override val isEmpty get() = true
+    }
 
     companion object {
-        val PLACEHOLDER = VehicleImageAdapterItem(null)
+        fun buildWith(vehicleImage: VehicleImage?): VehicleImageAdapterItem =
+            vehicleImage?.let { Populated(vehicleImage) } ?: Placeholder
     }
 }

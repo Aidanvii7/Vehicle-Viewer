@@ -38,9 +38,10 @@ dependencies {
         exclude group: "com.android.support"
     }
 
-    // testing
-    testImplementation junit5.unitTests()
-    testCompileOnly junit5.unitTestsRuntime()
-    testImplementation junit5.parameterized()
+    // JUnit5 Jupiter
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit5_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit5_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit5_version"
+
     testImplementation project(path: ':TestUtils')
 }

@@ -58,7 +58,7 @@ internal class VehicleOverviewViewModelTest {
         fun `vehicleAdapterItems contains 6 placeholder adapter items`() {
             tested.vehicleAdapterItems.apply {
                 size `should be equal to` 6
-                forEach { it `should be` VehicleImageAdapterItem.PLACEHOLDER }
+                forEach { it `should be` VehicleImageAdapterItem.buildWith(null) }
             }
         }
 
@@ -78,7 +78,7 @@ internal class VehicleOverviewViewModelTest {
                 tested.vehicleAdapterItems.apply {
                     size `should be equal to` 3
                     (0..2).forEach { index ->
-                        this[index] `should equal` VehicleImageAdapterItem(vehicle.images[index])
+                        this[index] `should equal` VehicleImageAdapterItem.buildWith(vehicle.images[index])
                     }
                 }
             }
