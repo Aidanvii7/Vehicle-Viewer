@@ -18,7 +18,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 internal class VehicleOverviewViewModel(
-    private val fetchVehicleUseCase: FetchVehicleUseCase,
+    private val fetchVehicle: FetchVehicleUseCase,
     private val coroutineDispatchers: CoroutineDispatchers = CoroutineDispatchers.DEFAULT
 ) : ObservableArchViewModel() {
 
@@ -74,9 +74,7 @@ internal class VehicleOverviewViewModel(
     }
 
     private suspend fun CoroutineScope.fetchAndBuildAdapterItems(): List<VehicleImageAdapterItem> =
-        fetchVehicleUseCase.invokeIn(this).images.map { vehicleImage ->
-            VehicleImageAdapterItem.buildWith(vehicleImage)
-        }
+        fetchVehicle(this).images.map { vehicleImage -> VehicleImageAdapterItem.buildWith(vehicleImage) }
 
     override fun onCleared() = fetchVehicleJob.cancel()
 

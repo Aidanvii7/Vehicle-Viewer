@@ -4,17 +4,9 @@ import com.aidanvii.vehicles.features.overview.domain.FetchVehicleUseCase
 import com.aidanvii.vehicles.models.Vehicle
 import com.aidanvii.vehicles.models.VehicleImage
 import com.aidanvii.vehicles.repository.VehicleRepository
-import com.aidanvii.vehicles.testutils.spied
 import com.aidanvii.vehicles.testutils.synchronousCoroutineDispatchers
-import com.nhaarman.mockitokotlin2.inOrder
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verifyBlocking
-import com.nhaarman.mockitokotlin2.verifyZeroInteractions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
 import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should be false`
 import org.amshove.kluent.`should be true`
@@ -39,13 +31,13 @@ internal class VehicleOverviewViewModelTest {
         override suspend fun fetchVehicleIn(coroutineScope: CoroutineScope): Vehicle = vehicle
     }
 
-    val fetchVehicleUseCase = FetchVehicleUseCase(repository)
+    val fetchVehicle = FetchVehicleUseCase(repository)
 
     @Nested
     inner class `When view model is initialised` {
 
         val tested = VehicleOverviewViewModel(
-            fetchVehicleUseCase = fetchVehicleUseCase,
+            fetchVehicle = fetchVehicle,
             coroutineDispatchers = synchronousCoroutineDispatchers
         )
 
